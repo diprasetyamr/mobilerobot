@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<package>
+  <name>mobile_robot</name>
+  <version>0.0.0</version>
+  <description>The thesis package</description>
+
+  <maintainer email="mrdiprasetya@luckycloud.de">Mochammad Rizky Diprasetya</maintainer>
+
+  <license>TODO</license>
+
+  <!-- <url type="website">http://wiki.ros.org/thesis</url> -->
+
+  <author email="mrdiprasetya@luckycloud.de">Mochammad Rizky Diprasetya</author>
+
+
+  <!-- The *_depend tags are used to specify dependencies -->
+  <!-- Dependencies can be catkin packages or system dependencies -->
+  <!-- Examples: -->
+  <!-- Use build_depend for packages you need at compile time: -->
+  <!--   <build_depend>message_generation</build_depend> -->
+  <!-- Use buildtool_depend for build tool packages: -->
+  <!--   <buildtool_depend>catkin</buildtool_depend> -->
+  <!-- Use run_depend for packages you need at runtime: -->
+  <!--   <run_depend>message_runtime</run_depend> -->
+  <!-- Use test_depend for packages you need only for testing: -->
+  <!--   <test_depend>gtest</test_depend> -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>message_filters</build_depend>
+  <run_depend>message_filters</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <!--<export>
+     gazebo_ros_paths_plugin automatically adds these to
+        GAZEBO_PLUGIN_PATH and GAZEBO_MODEL_PATH when you do this export inside
+        the package.xml file. You can than use URIs of type model://my_package/stuff.
+    <gazebo_ros
+        gazebo_plugin_path="${prefix}/lib"
+        gazebo_model_path="${prefix}/.." />
+</export> -->
+</package>

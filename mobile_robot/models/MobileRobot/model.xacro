@@ -1,0 +1,343 @@
+<?xml version="1.0"?>
+<robot name="mobilerobot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- Constants for Robot Dimension -->
+<xacro:property name="PI" value="3.1415926535897931"/>
+<xacro:property name="robot_z" value="0.07"/>
+<xacro:property name="main_x" value="0.34888"/>
+<xacro:property name="main_y" value="0.3736"/>
+<xacro:property name="main_mass" value="8"/>
+<xacro:property name="front_x" value="0.11556"/>
+<xacro:property name="front_y" value="0.27932"/>
+<xacro:property name="front_mass" value="2"/>
+<xacro:property name="rear_x" value="0.11556"/>
+<xacro:property name="rear_y" value="0.27932"/>
+<xacro:property name="rear_mass" value="2"/>
+<xacro:property name="wheel_mass" value="0.5"/>
+<xacro:property name="wheel_radius" value="0.05"/>
+<xacro:property name="wheel_length" value="0.04714"/>
+<xacro:property name="sensor_mount_x" value="0.08"/>
+<xacro:property name="sensor_mount_y" value="0.08"/>
+<xacro:property name="sensor_mount_z" value="0.02"/>
+<xacro:property name="sensor_mount_mass" value="0.100"/>
+<xacro:property name="sensor_mass" value="0.3"/>
+<xacro:property name="sensor_radius" value="0.04"/>
+<xacro:property name="sensor_length" value="0.03"/>
+
+<!-- Used for fixing robot to Gazebo 'main_chassis' -->
+  <link name="base_link"/>
+
+  <joint name="fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="main_chassis"/>
+</joint>
+
+
+<!-- Main Chassis Link -->
+  <link name="main_chassis">
+    <collision>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+	<box size="${main_x} ${main_y} ${robot_z}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+	<box size="${main_x} ${main_y} ${robot_z}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <mass value="${main_mass}"/>
+      <inertia
+	  ixx="${main_mass / 12.0 * (main_y*main_y + robot_z*robot_z)}" ixy="0.0" ixz="0.0"
+	  iyy="${main_mass / 12.0 * (robot_z*robot_z + main_x*main_x)}" iyz="0.0"
+	  izz="${main_mass / 12.0 * (main_x*main_x + main_y*main_y)}"/>
+    </inertial>
+  </link>
+
+  <joint name="main_front_joint" type="fixed">
+    <origin xyz="0.23222 0 0" rpy="0 0 0"/>
+    <parent link="main_chassis"/>
+    <child link="front_chassis"/>
+  </joint>
+
+  <joint name="main_rear_joint" type="fixed">
+    <origin xyz="-0.23222 0 0" rpy="0 0 0"/>
+    <parent link="main_chassis"/>
+    <child link="rear_chassis"/>
+  </joint>
+<!-- Main Chassis Link -->
+
+<!-- Front Chassis Link -->
+  <link name="front_chassis">
+    <collision>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+	<box size="${front_x} ${front_y} ${robot_z}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+	<box size="${front_x} ${front_y} ${robot_z}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <mass value="${front_mass}"/>
+      <inertia
+	  ixx="${front_mass / 12.0 * (front_y*front_y + robot_z*robot_z)}" ixy="0.0" ixz="0.0"
+	  iyy="${front_mass / 12.0 * (robot_z*robot_z + front_x*front_x)}" iyz="0.0"
+	  izz="${front_mass / 12.0 * (front_x*front_x + front_y*front_y)}"/>
+    </inertial>
+  </link>
+
+  <joint name="FLW_joint" type="fixed">
+      <parent link="front_chassis"/>
+      <child link="FLW"/>
+      <origin xyz="0 0.16232 0" rpy="0 0 0" />
+  </joint>
+
+  <joint name="FRW_joint" type="fixed">
+      <parent link="front_chassis"/>
+      <child link="FRW"/>
+      <origin xyz="0 -0.16232 0" rpy="0 0 0" /> 
+  </joint>
+
+  <joint name="sensor_mount_joint" type="fixed">
+      <parent link="front_chassis"/>
+      <child link="sensor_mount"/>
+      <origin xyz="0.09778 0 -0.025" rpy="0 0 0" /> 
+  </joint>
+<!-- Front Chassis Link -->
+
+<!-- Rear Chassis Link -->
+  <link name="rear_chassis">
+    <collision>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+	<box size="${rear_x} ${rear_y} ${robot_z}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+	<box size="${rear_x} ${rear_y} ${robot_z}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <mass value="${rear_mass}"/>
+      <inertia
+	  ixx="${rear_mass / 12.0 * (rear_y*rear_y + robot_z*robot_z)}" ixy="0.0" ixz="0.0"
+	  iyy="${rear_mass / 12.0 * (robot_z*robot_z + rear_x*rear_x)}" iyz="0.0"
+	  izz="${rear_mass / 12.0 * (rear_x*rear_x + rear_y*rear_y)}"/>
+    </inertial>
+  </link>
+
+  <joint name="RLW_joint" type="fixed">
+      <parent link="rear_chassis"/>
+      <child link="RLW"/>
+      <origin xyz="0 0.16232 0" rpy="0 0 0" /> 
+  </joint>
+
+  <joint name="RRW_joint" type="fixed">
+      <parent link="rear_chassis"/>
+      <child link="RRW"/>
+      <origin xyz="0 -0.16232 0" rpy="0 0 0" />
+  </joint>
+<!-- Rear Chassis Link -->
+
+<!--  FLW Link -->
+  <link name="FLW">
+    <collision>
+      <origin xyz="0 0 0.1" rpy="${PI/2} 0 0"/>
+      <geometry>
+	<cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0.1" rpy="${PI/2} 0 0"/>
+      <geometry>
+	<cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <mass value="${wheel_mass}"/>
+      <inertia
+	  ixx="${wheel_mass / 12.0 * (3*wheel_radius*wheel_radius + wheel_length*wheel_length)}" ixy="0.0" ixz="0.0"
+	  iyy="${wheel_mass / 12.0 * (wheel_length*wheel_length + 3*wheel_radius*wheel_radius)}" iyz="0.0"
+	  izz="${wheel_mass*wheel_radius*wheel_radius/2}"/>
+    </inertial>
+  </link>
+<!-- FLW Link -->
+
+<!--  FRW Link -->
+  <link name="FRW">
+    <collision>
+      <origin xyz="0 0 0.1" rpy="${PI/2} 0 0"/>
+      <geometry>
+	<cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0.1" rpy="${PI/2} 0 0"/>
+      <geometry>
+	<cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <mass value="${wheel_mass}"/>
+      <inertia
+	  ixx="${wheel_mass / 12.0 * (3*wheel_radius*wheel_radius + wheel_length*wheel_length)}" ixy="0.0" ixz="0.0"
+	  iyy="${wheel_mass / 12.0 * (wheel_length*wheel_length + 3*wheel_radius*wheel_radius)}" iyz="0.0"
+	  izz="${wheel_mass*wheel_radius*wheel_radius/2}"/>
+    </inertial>
+  </link>
+<!-- FRW Link -->
+
+<!--  RRW Link -->
+  <link name="RRW">
+    <collision>
+      <origin xyz="0 0 0.1" rpy="${PI/2} 0 0"/>
+      <geometry>
+	<cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0.1" rpy="${PI/2} 0 0"/>
+      <geometry>
+	<cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <mass value="${wheel_mass}"/>
+      <inertia
+	  ixx="${wheel_mass / 12.0 * (3*wheel_radius*wheel_radius + wheel_length*wheel_length)}" ixy="0.0" ixz="0.0"
+	  iyy="${wheel_mass / 12.0 * (wheel_length*wheel_length + 3*wheel_radius*wheel_radius)}" iyz="0.0"
+	  izz="${wheel_mass*wheel_radius*wheel_radius/2}"/>
+    </inertial>
+  </link>
+<!-- RRW Link -->
+
+<!--  RLW Link -->
+  <link name="RLW">
+    <collision>
+      <origin xyz="0 0 0.1" rpy="${PI/2} 0 0"/>
+      <geometry>
+	<cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0.1" rpy="${PI/2} 0 0"/>
+      <geometry>
+	<cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <mass value="${wheel_mass}"/>
+      <inertia
+	  ixx="${wheel_mass / 12.0 * (3*wheel_radius*wheel_radius + wheel_length*wheel_length)}" ixy="0.0" ixz="0.0"
+	  iyy="${wheel_mass / 12.0 * (wheel_length*wheel_length + 3*wheel_radius*wheel_radius)}" iyz="0.0"
+	  izz="${wheel_mass*wheel_radius*wheel_radius/2}"/>
+    </inertial>
+  </link>
+<!-- RLW Link -->
+
+<!-- Sensor Mount -->
+<link name="sensor_mount">
+    <collision>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+	<box size="${sensor_mount_x} ${sensor_mount_y} ${sensor_mount_z}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+	<box size="${sensor_mount_x} ${sensor_mount_y} ${sensor_mount_z}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <mass value="${sensor_mount_mass}"/>
+      <inertia
+	  ixx="${sensor_mount_mass / 12.0 * (sensor_mount_y*sensor_mount_y + sensor_mount_z*sensor_mount_z)}" ixy="0.0" ixz="0.0"
+	  iyy="${sensor_mount_mass / 12.0 * (sensor_mount_z*sensor_mount_z + sensor_mount_x*sensor_mount_x)}" iyz="0.0"
+	  izz="${sensor_mount_mass / 12.0 * (sensor_mount_x*sensor_mount_x + sensor_mount_y*sensor_mount_y)}"/>
+    </inertial>
+  </link>
+
+  <joint name="sensor_joint" type="fixed">
+      <parent link="sensor_mount"/>
+      <child link="laser"/>
+      <origin xyz="0 0 0.025" rpy="0 0 0" />
+  </joint>
+<!-- Sensor Mount -->
+
+<!-- Sensor -->
+  <link name="laser">
+    <collision>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+	<cylinder length="${sensor_length}" radius="${sensor_radius}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+	<cylinder length="${sensor_length}" radius="${sensor_radius}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <mass value="${sensor_mass}"/>
+      <inertia
+	  ixx="${sensor_mass / 12.0 * (3*sensor_radius*sensor_radius + sensor_length*sensor_length)}" ixy="0.0" ixz="0.0"
+	  iyy="${sensor_mass / 12.0 * (sensor_length*sensor_length + 3*sensor_radius*sensor_radius)}" iyz="0.0"
+	  izz="${sensor_mass*sensor_radius*sensor_radius/2}"/>
+    </inertial>
+  </link>
+<!-- Sensor -->
+
+<!-- Plugins Gazebo Ros -->
+<!-- Laser Scanner -->
+<!-- Laser Scanner -->
+<!-- Planar Movement -->
+<gazebo>
+    <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <odometryRate>20.0</odometryRate>
+      <robotBaseFrame>main_chassis</robotBaseFrame>
+    </plugin>
+</gazebo>
+<!-- Planar Movement -->
+
+</robot>

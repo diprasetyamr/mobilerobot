@@ -1,0 +1,23 @@
+<launch>
+
+	<!-- Some general parameters -->
+	<param name="use_sim_time" value="false" />
+	<rosparam file="$(find nav2d_tutorials)/param/ros.yaml"/>
+
+        <!-- <include file="$(find rplidar_ros)/launch/rplidar.launch" /> -->
+        <include file="$(find mobile_robot)/launch/hectormapping.launch" />
+
+	<include file="$(find mobile_robot)/launch/MobileRobot.launch" />
+
+	<include file="$(find hector_geotiff)/launch/geotiff_mapper.launch">
+        <arg name="trajectory_source_frame_name" value="scanmatcher_frame"/>
+        </include>
+
+	<!-- RVIZ to view the visualization -->
+	<!-- <node name="RVIZ" pkg="rviz" type="rviz" args=" -d $(find nav2d_tutorials)/param/tutorial3.rviz" /> -->
+
+	<node pkg="mobile_robot" type="mappers" name="mappers"/>
+	<node pkg="mobile_robot" type="looper" name="looper"/>
+	<node pkg="mobile_robot" type="poscontrol" name="poscontrol"/>
+
+</launch>

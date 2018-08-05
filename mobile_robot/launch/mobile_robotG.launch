@@ -1,0 +1,15 @@
+<launch>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find mobile_robot)/worlds/mobile_robot.world"/>
+  </include>
+  
+  <node pkg="mobile_robot" type="ultrasonic" name="ultrasonic"/>
+  <node pkg="mobile_robot" type="mappers" name="mappers"/>
+  <node pkg="mobile_robot" type="kineplugin" name="kineplugin"/>
+  <node pkg="mobile_robot" type="kinematics" name="kinematics"/>
+  <node pkg="mobile_robot" type="path2speed" name="path2speed"/>
+  <node pkg="mobile_robot" type="pathpublish" name="pathpublish"/>
+
+</launch>
