@@ -1,7 +1,7 @@
 #include "ros/ros.h"
 #include "mobile_robot/path.h"
 
-mobile_robot_pc::path paths;
+mobile_robot::path paths;
 
 void callback1(const mobile_robot::path::ConstPtr& path)
 {
