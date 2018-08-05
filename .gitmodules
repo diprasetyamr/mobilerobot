@@ -1,0 +1,12 @@
+[submodule "hector_localization"]
+	path = hector_localization
+	url = https://github.com/tu-darmstadt-ros-pkg/hector_localization.git
+[submodule "hector_slam"]
+	path = hector_slam
+	url = https://github.com/tu-darmstadt-ros-pkg/hector_slam.git
+[submodule "joint_state_publisher"]
+	path = joint_state_publisher
+	url = https://github.com/ros/joint_state_publisher.git
+[submodule "robot_state_publisher"]
+	path = robot_state_publisher
+	url = https://github.com/ros/robot_state_publisher.git
