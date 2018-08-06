@@ -1,0 +1,3 @@
+<launch>
+	<node pkg="motor" type="auto_motor" name="auto_motor"/>
+</launch>
