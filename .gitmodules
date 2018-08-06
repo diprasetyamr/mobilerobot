@@ -16,3 +16,4 @@
 [submodule "rosnodejs-project"]
 	path = rosnodejs-project
 	url = https://github.com/diprasetyamr/rosnodejs-project.git
+	branch = mobile-robot-project-develop
