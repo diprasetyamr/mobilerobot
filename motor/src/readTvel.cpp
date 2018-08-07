@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 
     for(int i = 1; i<5; i++)
     {
-      speedM.speedM1 = motorC.readTvel(i)
+      speedM.speedM1 = motorC.readTvel(i);
     }
 
     speedpub.publish(speedM);
