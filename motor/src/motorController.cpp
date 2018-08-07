@@ -1,11 +1,3 @@
-#include <fcntl.h>
-#include <string>
-#include <cstdio>
-#include <termios.h>
-#include <cstring>
-#include <cerrno>
-#include <zconf.h>
-#include <math.h>
 #include "motor.h"
 #include "ros/ros.h"
 #include "sensor_msgs/Joy.h"
@@ -25,7 +17,7 @@ void speedCallback(const motor::coordinate::ConstPtr& msg)
         vx = msg->x;
         vy = msg->y;
         vz = msg->z;
-        
+
 	if(vx < 0)
 	{
 		if(vx > -0.2)

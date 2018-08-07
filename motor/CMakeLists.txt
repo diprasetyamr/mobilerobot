@@ -50,6 +50,8 @@ find_package(catkin REQUIRED COMPONENTS
  add_message_files(
    FILES
    coordinate.msg
+   temp.msg
+   speedM.msg
  )
 
 ## Generate services in the 'srv' folder
@@ -204,3 +206,15 @@ install(DIRECTORY launch
 add_executable(motorController src/motorController.cpp include/motor.cpp include/motor.h)
 target_link_libraries(motorController ${catkin_LIBRARIES})
 add_dependencies(motorController motor_generate_messages_cpp)
+
+add_executable(readTm src/readTm.cpp include/motor.cpp include/motor.h)
+target_link_libraries(readTm ${catkin_LIBRARIES})
+add_dependencies(readTm motor_generate_messages_cpp)
+
+add_executable(readTvel src/readTvel.cpp include/motor.cpp include/motor.h)
+target_link_libraries(readTvel ${catkin_LIBRARIES})
+add_dependencies(readTvel motor_generate_messages_cpp)
+
+add_executable(readAvel src/readAvel.cpp include/motor.cpp include/motor.h)
+target_link_libraries(readAvel ${catkin_LIBRARIES})
+add_dependencies(readAvel motor_generate_messages_cpp)
