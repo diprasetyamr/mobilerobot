@@ -16,10 +16,10 @@ int main(int argc, char **argv)
 
 	while(ros::ok())
 	{
-
+    tempM.tempM.clear();
     for(int i = 1; i<5; i++)
     {
-      tempM.tempM1 = motorC.readMtemp(i);
+      tempM.tempM.push_back(motorC.readMtemp(i));
     }
 
     temppub.publish(tempM);

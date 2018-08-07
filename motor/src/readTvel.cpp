@@ -17,9 +17,10 @@ int main(int argc, char **argv)
 	while(ros::ok())
 	{
 
+    speedM.speedM.clear();
     for(int i = 1; i<5; i++)
     {
-      speedM.speedM1 = motorC.readTvel(i);
+      speedM.speedM.push_back(motorC.readTvel(i));
     }
 
     speedpub.publish(speedM);
