@@ -50,7 +50,7 @@ find_package(catkin REQUIRED COMPONENTS
  add_message_files(
    FILES
    coordinate.msg
-   temp.msg
+   tempM.msg
    speedM.msg
  )
 

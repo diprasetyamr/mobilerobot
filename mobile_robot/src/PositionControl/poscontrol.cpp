@@ -31,20 +31,20 @@ void callback(const geometry_msgs::PoseStamped::ConstPtr& odoms, const mobile_ro
 
         if(error1 < -3.1416)
         {
-		         error2 = 6.2832 - abs(error1);
-		         errorang = error2;
+                error2 = 6.2832 - abs(error1);
+                errorang = error2;
         }
         else if(error1 > 3.1416)
         {
-		        error2 = -6.2832 + error1;
-		          errorang = error2;
+                error2 = -6.2832 + error1;
+                errorang = error2;
         }
-	       else
-	       {
-		          errorang = error1;
-	       }
+        else
+        {
+                errorang = error1;
+        }
 
-	      velo.x = 0;
+        velo.x = 0;
         velo.z = 0;
         velo.y = 0;
 
@@ -57,30 +57,30 @@ void callback(const geometry_msgs::PoseStamped::ConstPtr& odoms, const mobile_ro
 
         if(dists>0.3)
         {
-          targetpos[0] = curpos[0] + ((targetpos[0]-curpos[0])*0.3)/dists;
-          targetpos[1] = curpos[1] + ((targetpos[1]-curpos[1])*0.3)/dists;
+                targetpos[0] = curpos[0] + ((targetpos[0]-curpos[0])*0.3)/dists;
+                targetpos[1] = curpos[1] + ((targetpos[1]-curpos[1])*0.3)/dists;
         }
 
-          errorpos[0] = targetpos[0] - curpos[0];
-          errorpos[1] = targetpos[1] - curpos[1];
+        errorpos[0] = targetpos[0] - curpos[0];
+        errorpos[1] = targetpos[1] - curpos[1];
 
-          printf("X error: %f, Y error: %f, ANG error: %f\n",errorpos[0], errorpos[1], errorang);
+        printf("X error: %f, Y error: %f, ANG error: %f\n",errorpos[0], errorpos[1], errorang);
         if(errorang < 0.15 && errorang > -0.15)
         {
-		            //velo.x = 0;
+                //velo.x = 0;
                 velo.z = 0;
                 angreached = 1;
                 printf("ZEROING1\n");
         }
         else if(errorpos[0] < 0.05 && errorpos[1] < 0.05)
         {
-          if(errorpos[0] > -0.05 && errorpos[1] > -0.05)
-          {
-            printf("ZEROING2\n");
-            velo.x = 0;
-            velo.z = 0;
-            angreached = 1;
-          }
+                if(errorpos[0] > -0.05 && errorpos[1] > -0.05)
+                {
+                        printf("ZEROING2\n");
+                        velo.x = 0;
+                        velo.z = 0;
+                        angreached = 1;
+                }
         }
         else
         {
@@ -124,19 +124,19 @@ void callback(const geometry_msgs::PoseStamped::ConstPtr& odoms, const mobile_ro
 
                 if(posreached != 1)
                 {
-                  if(errorpos[0] < 0)
-                  {
-                    errorpos[0] = -1*errorpos[0];
-                  }
-                  if(errorpos[1] < 0)
-                  {
-                    errorpos[1] = -1*errorpos[1];
-                  }
-                  if(errorpos[0] > 0.05 || errorpos[1] > 0.05)
-                  {
-                          printf("FORWARD\n");
-                          velo.x = 25;
-                  }
+                        if(errorpos[0] < 0)
+                        {
+                                errorpos[0] = -1*errorpos[0];
+                        }
+                        if(errorpos[1] < 0)
+                        {
+                                errorpos[1] = -1*errorpos[1];
+                        }
+                        if(errorpos[0] > 0.05 || errorpos[1] > 0.05)
+                        {
+                                printf("FORWARD\n");
+                                velo.x = 25;
+                        }
                 }
         }
 
