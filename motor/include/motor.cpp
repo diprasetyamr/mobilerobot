@@ -375,7 +375,7 @@ int motors::readHtemp(int id)
 
 int motors::readMtemp(int id)
 {
-								int current = motors::readCurr(id);
+								int current = motors::readCurr(id)/1000.0;
 								float R = 1.46;
 								float Rth1 = 4.7;
 								float Rth2 = 15.2;
